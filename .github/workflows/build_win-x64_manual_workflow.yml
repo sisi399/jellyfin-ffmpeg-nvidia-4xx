@@ -7,6 +7,8 @@ jobs:
   call_workflow:
     uses: ./.github/workflows/_meta_portable.yaml
     with:
+      os: 'windows'
+      architectures: '["win64"]'
       release: true # Change to true if you want to publish the release.
     secrets:
       deploy-host: ${{ secrets.DEPLOY_HOST }}
