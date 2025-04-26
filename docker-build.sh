@@ -290,7 +290,7 @@ prepare_extra_common() {
 
     # FFNVCODEC
     pushd ${SOURCE_DIR}
-    git clone -b n12.0.16.1 --depth=1 https://github.com/FFmpeg/nv-codec-headers.git
+    git clone -b n11.1.5.3 --depth=1 https://github.com/FFmpeg/nv-codec-headers.git
     pushd nv-codec-headers
     make PREFIX=${TARGET_DIR} install
     popd

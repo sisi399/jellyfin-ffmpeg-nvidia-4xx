@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SCRIPT_REPO="https://github.com/FFmpeg/nv-codec-headers.git"
-SCRIPT_COMMIT="451da99614412a7f9526ef301a5ee0c7a6f9ad76"
+SCRIPT_COMMIT="43d91706e097565f57b311e567f0219838bcc2f6"
 
 ffbuild_enabled() {
     [[ $TARGET == mac* ]] && return -1
