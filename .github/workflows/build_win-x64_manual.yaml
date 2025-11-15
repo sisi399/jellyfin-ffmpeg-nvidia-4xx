@@ -1,0 +1,12 @@
+name: Build jellyfin-ffmpeg (Windows win64 only)
+
+on:
+  workflow_dispatch:  # This enables the Run Workflow button
+
+jobs:
+  build_windows_win64:
+    uses: ./.github/workflows/_meta_portable.yaml
+    with:
+      os: 'windows'
+      architectures: '["win64"]'
+      release: false
