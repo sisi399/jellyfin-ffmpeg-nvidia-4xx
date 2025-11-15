@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Builds the EXE/ZIP inside the Docker container
-
 set -o errexit
 set -o xtrace
 
@@ -21,8 +19,9 @@ make install
 popd
 
 # mingw-std-threads
-git clone --depth=1 https://github.com/meganz/mingw-std-threads.git
+git clone https://github.com/meganz/mingw-std-threads.git
 pushd mingw-std-threads
+git checkout 1.0.0
 mkdir -p ${FF_DEPS_PREFIX}/include
 mv *.h ${FF_DEPS_PREFIX}/include
 popd
@@ -47,8 +46,9 @@ popd
 popd
 
 # LIBXML2
-git clone --depth=1 https://github.com/GNOME/libxml2.git
+git clone https://github.com/GNOME/libxml2.git
 pushd libxml2
+git checkout bc14d70f49a7b6f871e17751aa1d3a5210632a15
 ./autogen.sh \
     --prefix=${FF_DEPS_PREFIX} \
     --host=${FF_TOOLCHAIN} \
@@ -70,8 +70,9 @@ make install
 popd
 
 # FREETYPE
-git clone --depth=1 https://gitlab.freedesktop.org/freetype/freetype.git
+git clone https://gitlab.freedesktop.org/freetype/freetype.git
 pushd freetype
+git checkout 1452355de99d22b0cba6ccc17bf5cdf3682ef61e
 ./autogen.sh
 ./configure \
     --prefix=${FF_DEPS_PREFIX} \
@@ -83,7 +84,10 @@ make install
 popd
 
 # FRIBIDI
-git clone --depth=1 https://github.com/fribidi/fribidi.git
+git clone https://github.com/fribidi/fribidi.git
+pushd fribidi
+git checkout 3826589ea556da613bd42742a169789469e8b635
+popd
 meson setup fribidi fribidi_build \
     --prefix=${FF_DEPS_PREFIX} \
     --cross-file=${FF_MESON_TOOLCHAIN} \
@@ -136,8 +140,9 @@ popd
 popd
 
 # CHROMAPRINT
-git clone --depth=1 https://github.com/acoustid/chromaprint.git
+git clone https://github.com/acoustid/chromaprint.git
 pushd chromaprint
+git checkout aa67c95b9e486884a6d3ee8b0c91207d8c2b0551
 mkdir build
 pushd build
 cmake \
@@ -202,8 +207,9 @@ meson configure harfbuzz_build
 ninja -j$(nproc) -C harfbuzz_build install
 
 # LIBUDFREAD
-git clone --depth=1 https://code.videolan.org/videolan/libudfread.git
+git clone https://code.videolan.org/videolan/libudfread.git
 pushd libudfread
+git checkout b3e6936a23f8af30a0be63d88f4695bdc0ea26e1
 ./bootstrap
 ./configure \
     --prefix=${FF_DEPS_PREFIX} \
@@ -216,8 +222,9 @@ make install
 popd
 
 # LIBASS
-git clone --depth=1 https://github.com/libass/libass.git
+git clone https://github.com/libass/libass.git
 pushd libass
+git checkout c5bb87e2f5d6c18763b4614817c206a4f4d2332a
 ./autogen.sh
 ./configure \
     --prefix=${FF_DEPS_PREFIX} \
@@ -230,8 +237,9 @@ make install
 popd
 
 # LIBBLURAY
-git clone --depth=1 https://code.videolan.org/videolan/libbluray.git
+git clone https://code.videolan.org/videolan/libbluray.git
 pushd libbluray
+git checkout c1550e5cfd92229373f4cb729e2320827b9d22a8
 ./bootstrap
 ./configure \
     --prefix=${FF_DEPS_PREFIX} \
@@ -263,8 +271,9 @@ popd
 popd
 
 # OGG
-git clone --depth=1 https://github.com/xiph/ogg.git
+git clone https://github.com/xiph/ogg.git
 pushd ogg
+git checkout 7cf42ea17aef7bc1b7b21af70724840a96c2e7d0
 ./autogen.sh
 ./configure \
     --prefix=${FF_DEPS_PREFIX} \
@@ -277,8 +286,9 @@ make install
 popd
 
 # OPUS
-git clone --depth=1 https://github.com/xiph/opus.git
+git clone https://github.com/xiph/opus.git
 pushd opus
+git checkout 2554a89e02c7fc30a980b4f7e635ceae1ecba5d6
 ./autogen.sh
 ./configure \
     --prefix=${FF_DEPS_PREFIX} \
@@ -290,8 +300,9 @@ make install
 popd
 
 # THEORA
-git clone --depth=1 https://github.com/xiph/theora.git
+git clone https://github.com/xiph/theora.git
 pushd theora
+git checkout 7180717276af1ebc7da15c83162d6c5d6203aabf
 ./autogen.sh
 ./configure \
     --prefix=${FF_DEPS_PREFIX} \
@@ -304,8 +315,9 @@ make install
 popd
 
 # VORBIS
-git clone --depth=1 https://github.com/xiph/vorbis.git
+git clone https://github.com/xiph/vorbis.git
 pushd vorbis
+git checkout bb4047de4c05712bf1fd49b9584c360b8e4e0adf
 ./autogen.sh
 ./configure \
     --prefix=${FF_DEPS_PREFIX} \
@@ -350,8 +362,9 @@ make install
 popd
 
 # LIBVPX
-git clone --depth=1 https://chromium.googlesource.com/webm/libvpx
+git clone https://chromium.googlesource.com/webm/libvpx
 pushd libvpx
+git checkout cdf8da4c03cf53f2c31a9a5f4c84880ca128c608
 export CROSS=${FF_CROSS_PREFIX}
 ./configure \
     --prefix=${FF_DEPS_PREFIX} \
@@ -363,8 +376,9 @@ make install
 popd
 
 # ZIMG
-git clone --recursive --depth=1 https://github.com/sekrit-twc/zimg.git
+git clone --recursive https://github.com/sekrit-twc/zimg.git
 pushd zimg
+git checkout f44905d14c0436959b31fcc70e25ebfeb793e757
 ./autogen.sh
 ./configure \
     --prefix=${FF_DEPS_PREFIX} \
@@ -376,8 +390,9 @@ make install
 popd
 
 # X264
-git clone --depth=1 https://code.videolan.org/videolan/x264.git
+git clone https://code.videolan.org/videolan/x264.git
 pushd x264
+git checkout 4613ac3c15fd75cebc4b9f65b7fb95e70a3acce1
 ./configure \
     --prefix=${FF_DEPS_PREFIX} \
     --host=${FF_TOOLCHAIN} \
@@ -389,8 +404,10 @@ make install
 popd
 
 # X265
-git clone --depth=1 https://bitbucket.org/multicoreware/x265_git.git
+git clone https://bitbucket.org/multicoreware/x265_git.git
 pushd x265_git
+git checkout dd594f59d95198c6d8e4133b6002c18e47e7d6fe
+
 # Wa for https://bitbucket.org/multicoreware/x265_git/issues/624
 rm -rf .git
 x265_conf="
